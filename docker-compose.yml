@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:alpine
+    
+  db:
+    image: postgres:11-alpine
+    volumes:
+      - ror-getting-started_data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    env_file:
+      - ./.env.development
+
+  web:
+    build: .
+    env_file:
+      - ./.env.development
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+      REDIS_HOST: redis
+      NODE_OPTIONS: "--max-old-space-size=8192"
+    command: ["tail","-F","/dev/null"]
+    volumes:
+      - .:/ror-getting-started:cached # Project files, synced with the container project directory
+      - /ror-getting-started/tmp
+      - node_modules:/ror-getting-started/node_modules # We need to make node modules persistent, so we save them into a shared volume
+      - gem_home:/usr/local/bundle # Same as node modules, but for ruby packages
+    ports:
+      - 3000:3000
+      - 3035:3035
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  ror-getting-started_data:
+  node_modules:
+  gem_home:
