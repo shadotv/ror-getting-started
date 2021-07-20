@@ -10,12 +10,12 @@ services:
     ports:
       - 5433:5432
     env_file:
-      - ./.env.development
+      - ./.env
 
   web:
     build: .
     env_file:
-      - ./.env.development
+      - ./.env
     environment:
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
       REDIS_HOST: redis
