@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Initial setup for a RoR application running with Docker.
 
-Things you may want to cover:
+## Inizialization
 
-* Ruby version
+1. Clone ror-getting-started repository in your local
+2. Create .env configuration from .env.example one
+3. Create docker environment running command docker-compose up -d
+4. In docker environment (docker-compose exec web bash) run rake db:create
 
-* System dependencies
+## Execute
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+run docker-compose exec web rails s -b 0.0.0.0 to start RoR server and navigate http://localhost:3000
