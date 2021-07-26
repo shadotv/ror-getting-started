@@ -33,6 +33,7 @@ default: &default
     - .woff2
 
   extensions:
+    - .vue
     - .mjs
     - .js
     - .sass
@@ -54,7 +55,7 @@ development:
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
     https: false
-    host: localhost
+    host: 0.0.0.0
     port: 3035
     public: localhost:3035
     hmr: false
@@ -70,6 +71,9 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
+      # docker compose config to enable hot reload (unsupported otherwise)
+      poll: 300
+      aggregateTimeout: 200
 
 
 test:
