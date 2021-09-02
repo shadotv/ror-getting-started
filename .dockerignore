@@ -1,0 +1,12 @@
+node_modules
+public/packs
+public/packs-test
+public/assets
+log
+tmp
+.vscode
+yarn.lock
+yarn-error.log
+.env*
+Dockerfile
+docker-compose.yml
