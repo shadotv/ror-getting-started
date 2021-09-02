@@ -4,6 +4,9 @@
   "scripts": {
     "docker-entrypoint": "bin/webpack-dev-server --host 0.0.0.0"
   },
+  "scripts": {
+    "docker-dev-entrypoint": "rm -rf node_modules/.cache/hard-source && bin/webpack-dev-server --host 0.0.0.0"
+  },
   "dependencies": {
     "@rails/webpacker": "5.4.0",
     "vue": "^2.6.14",
