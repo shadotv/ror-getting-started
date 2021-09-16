@@ -1,0 +1,42 @@
+# Pull default image for ruby 2.5
+FROM ruby:2.5
+# Set Fandom working dir
+RUN mkdir -p /usr/src/ror-getting-started
+WORKDIR /usr/src/ror-getting-started
+# Copy package definition files
+COPY ./Gemfile ./Gemfile.lock ./package.json /usr/src/ror-getting-started/
+# Install required packages
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt update -qq && apt install -y build-essential nodejs postgresql-client vim yarn --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/* && \
+    gem install bundler && \
+    bundle config --global frozen 1 && \
+    bundle install --without development test
+
+# set environment variables
+ENV RAILS_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_LOG_TO_STDOUT true
+
+ENV POSTGRES_USER ror_user
+ENV POSTGRES_DB ror_getting_started_prod
+ENV POSTGRES_HOST database
+# ENV POSTGRES_PASSWORD <db password>
+# ENV SECRET_KEY_BASE <secret key>
+
+# Copy all application files (except those listed in .dockerignore)
+COPY . /usr/src/ror-getting-started
+# Compile assets
+RUN bundle exec rake assets:precompile
+RUN chmod +x /usr/src/ror-getting-started/bin/prod_docker_entrypoint.sh
+# Expose port 3000 (rails)
+EXPOSE 3000
+# Start rails server
+CMD ["/usr/src/ror-getting-started/bin/prod_docker_entrypoint.sh"]
+
+# docker network create ror_getting_started_network
+# docker network inspect
+# docker run -p 5432:5432 --name ror_getting_started_postgres --network ror_getting_started_network -e POSTGRES_PASSWORD=secretpassword -e POSTGRES_USER=ror_user -d postgres
+# docker run --name ror_getting_started --network ror_getting_started_network -p 3001:3000 --add-host=database:<postgres_ip> -d ror-getting-started
