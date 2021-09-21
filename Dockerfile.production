@@ -22,8 +22,8 @@ ENV RAILS_LOG_TO_STDOUT true
 
 ENV POSTGRES_USER ror_user
 ENV POSTGRES_DB ror_getting_started_prod
-ENV POSTGRES_HOST database
-# ENV POSTGRES_PASSWORD <db password>
+# ENV POSTGRES_HOST database
+# ENV POSTGRES_PASSWORD <db password> ror_user_test
 # ENV SECRET_KEY_BASE <secret key>
 
 # Copy all application files (except those listed in .dockerignore)
