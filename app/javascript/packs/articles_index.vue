@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h1>Listing articles</h1>
-    <tr>
-      <td></td>
+    <h1>Listing articles with vue</h1>
+    <tr v-for="article in articles">
+      <td>{{article.title}}</td>
+      <td>{{article.text}}</td>
+      <td><a href=""></a></td>
     </tr>
   </div>
 </template>
@@ -13,7 +15,8 @@ export default {
     articles: {
       type: Array,
       default: () => { return []}
-    }
+    },
+    test:"ciao"
   },
   data() {
     return {};
