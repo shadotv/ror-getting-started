@@ -1,21 +1,29 @@
-<script>
-    export default{
-        data(){
-            return {
-                
-            }
-        }
-    }
-</script>
-
 <template>
-    <div>
-        <h1>Listing articles</h1>
-        <tr>
-            <td></td>
-        </tr>
-    </div>
+  <div>
+    <h1>Listing articles</h1>
+    <tr>
+      <td></td>
+    </tr>
+  </div>
 </template>
 
-<style>
+<script>
+export default {
+  props: {
+    articles: {
+      type: Array,
+      default: () => { return []}
+    }
+  },
+  data() {
+    return {};
+  },
+  mounted() {
+    console.log(this.articles);
+  }
+};
+</script>
+
+<style lang="sss" scoped>
+
 </style>
