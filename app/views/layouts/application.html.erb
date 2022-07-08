@@ -15,6 +15,10 @@
   </head>
 
   <body>
+    <div id="vue-root">
+      <articles :data="<%= @articles.to_json  %>"></articles>
+    </div>
     <%= yield %>
+    
   </body>
 </html>
